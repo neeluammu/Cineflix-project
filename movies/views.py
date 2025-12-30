@@ -12,7 +12,6 @@ from django.utils.decorators import method_decorator
 
 from authentication.permission import permitted_user_roles
 
-
 from subscriptions.models import UserSubscriptions
 
 from django.contrib import messages
