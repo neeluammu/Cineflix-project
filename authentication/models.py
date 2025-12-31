@@ -8,44 +8,44 @@ from django.contrib.auth.models import AbstractUser
 
 class RoleChoices(models.TextChoices):
 
-    USER='User','User'
+    USER = 'User','User'
 
-    ADMIN='Admin','Admin'
+    ADMIN = 'Admin','Admin'
 
 class Profile(AbstractUser):
 
-    role=models.CharField(max_length=10,choices=RoleChoices.choices)
+    role = models.CharField(max_length=10,choices=RoleChoices.choices)
 
-    phone=models.CharField(max_length=13,null=True,blank=True)
+    phone = models.CharField(max_length=13,null=True,blank=True)
 
-    phone_verified=models.BooleanField(default=False)
+    phone_verified = models.BooleanField(default=False)
 
     class Meta:
 
-        verbose_name = "Profiles"
+        verbose_name = 'Profiles'
 
-        verbose_name_plural = "Profiles"
+        verbose_name_plural = 'Profiles'
 
     def __str__(self):
 
-        return f'{self.username}'
+            return f'{self.username}'
     
 class OTP(BaseClass):
+     
+     profile = models.OneToOneField('profile',on_delete=models.CASCADE)
 
-    profile=models.OneToOneField('Profile',on_delete=models.CASCADE)
+     otp = models.CharField(max_length=4)
 
-    otp=models.CharField(max_length=4)
+     email_otp = models.CharField(max_length=4)
 
-    email_otp=models.CharField(max_length=4)
+     email_otp_verified = models.BooleanField(default=False)
 
-    email_otp_verified=models.BooleanField(default=False)
+     class Meta:
 
-    class Meta:
+        verbose_name = 'OTPs'
 
-        verbose_name = "OTPs"
+        verbose_name_plural = 'OTPs'
 
-        verbose_name_plural = "OTPs"
+     def __str__(self):
 
-    def __str__(self):
-
-        return f'{self.username} otp'
+            return f'{self.profile.username} otp'

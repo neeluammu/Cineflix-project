@@ -11,9 +11,9 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-from cineflix.cron import sheduler_job
+# from cineflix.cron import sheduler_job
 
-sheduler_job()
+# sheduler_job()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cineflix.settings')
 

@@ -22,7 +22,9 @@ from django.contrib.auth.decorators import login_required
 
 from django.utils.decorators import method_decorator
 
-from .permission import permitted_user_roles
+from .permissions import permitted_user_roles
+
+from django.contrib import messages
 
 # Create your views here.
 
@@ -67,7 +69,7 @@ class LoginView (View) :
         return render (request,self.template,context=data)
 
 
-@method_decorator(login_required(login_url='login'),name='dispatch')       
+@method_decorator(login_required(login_url='login'),name='dispatch')     
 class LogoutView (View) :
 
     def get(self,request,*args,**kwargs) :
@@ -75,6 +77,8 @@ class LogoutView (View) :
         logout(request)
 
         return redirect ('home')
+    
+
 
 class SignUpView(View):
 
@@ -110,6 +114,8 @@ class SignUpView(View):
 
             user.save()
 
+            messages.success(request,'signup successfully')
+
             recipient = user.email
 
             template='emails/logincredentials.html'
@@ -139,14 +145,14 @@ class ProfileView(View):
 
         return render(request,self.template)
     
-@method_decorator(permitted_user_roles(['User']),name='dispatch')
+@method_decorator(permitted_user_roles('User'),name='dispatch')
 class AddPhoneView(View):
 
     template = 'authentication/phone.html'
 
     form_class = AddPhoneForm
 
-    def get(self,request,*args,**kwargs) :
+    def get(self,request,args,*kwargs) :
 
         form = self.form_class()
 
@@ -171,7 +177,7 @@ class AddPhoneView(View):
         return render(request,self.template,context=data)
 
 
-@method_decorator(permitted_user_roles(['User']),name='dispatch')
+@method_decorator(permitted_user_roles('User'),name='dispatch')
 class VerifyOTPView(View) :
 
     template = 'authentication/otp.html'
@@ -262,7 +268,7 @@ class VerifyOTPView(View) :
 
         return render(request,self.template,context=data)
     
-@method_decorator(permitted_user_roles(['User']),name='dispatch')    
+@method_decorator(permitted_user_roles('User'),name='dispatch')    
 class ChangePasswordOTPView(View):
 
     template = 'authentication/password-otp.html'
@@ -362,10 +368,10 @@ class ChangePasswordView(View):
 
     def get(self,request,*args,**kwargs):
 
-        user=request.user
+        user = request.user
 
-        if user.otp.email_otp_verified:    
-
+        if user.otp.email_otp_verified:
+            
             form = self.form_class()
 
             data = {'form':form}
@@ -390,7 +396,7 @@ class ChangePasswordView(View):
 
             user.save()
 
-            user.otp.email_otp_verified=False
+            user.otp.email_otp_verified = False
 
             user.otp.save()
 
