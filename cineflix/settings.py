@@ -72,7 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
 
-            'builtins':['authentication.role_permissions','movies.custom_tags']
+            'builtins':['authentication.role_permissions']
         },
     },
 ]
