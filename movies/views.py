@@ -10,7 +10,7 @@ from django.db.models import Q
 
 from django.utils.decorators import method_decorator
 
-from authentication.permission import permitted_user_roles
+from authentication.permissions import permitted_user_roles
 
 from subscriptions.models import UserSubscriptions
 

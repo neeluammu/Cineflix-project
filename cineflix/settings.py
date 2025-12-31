@@ -72,7 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
 
-            'builtins':['authentication.role_permissions']
+            
         },
     },
 ]
@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
-        'HOST':config('DB_HOSt'),
+        'HOST':config('DB_HOST'),
         'PORT':'3306',
     }
 }

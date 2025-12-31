@@ -6,7 +6,7 @@ from subscriptions.models import SubscriptionPlans,UserSubscriptions
 
 from django.utils.decorators import method_decorator
 
-from authentication.permission import permitted_user_roles
+from authentication.permissions import permitted_user_roles
 
 import razorpay
 
